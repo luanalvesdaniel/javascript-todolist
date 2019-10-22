@@ -4,14 +4,8 @@ var inputElement = document.querySelector('#app input'); // Campo input
 var buttonElement = document.querySelector('#app button'); // Botão para inserir o todo
 
 // Array de string contendo a lista de todos
- var todos = [
-	'Fazer café',
-	'Estudar Javascript',
-	'Tomar café',
-	'Estudar React',
-	'Tomar café',
-	'Estudar React Native'
- ];
+// Iniciando com os dados o localstorage
+ var todos = JSON.parse(localStorage.getItem('list_todos')) || []; // Necessário array vazio para não dar erro
 
 // Renderizar os todos em tela
 function renderTodos(){
@@ -46,12 +40,20 @@ function addTodo(){
 	todos.push(todoText);
 	inputElement.value = '';
 	renderTodos();
+	saveToStorage();
 }
 
 buttonElement.onclick = addTodo;
 
-// Função para a remoção de todos ao clicar em Excluir
+// Remoção de todos ao clicar em Excluir
 function deleteTodo(pos){
 	todos.splice(pos, 1);
 	renderTodos();
+	saveToStorage();
+}
+
+// Salva no Storage
+function saveToStorage(){
+	localStorage.setItem('list_todos', JSON.stringify(todos));
+
 }
