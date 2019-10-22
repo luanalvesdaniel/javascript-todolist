@@ -15,6 +15,9 @@ var buttonElement = document.querySelector('#app button'); // Botão para inserir
 
 // Renderizar os todos em tela
 function renderTodos(){
+	// Colocar tudo dentro do ul como vazio
+	listElement.innerHTML = '';
+
 	// For para array de strings, onde percorrerá cada linha do array
 	for (todo of todos){
 		var todoElement = document.createElement('li');
@@ -26,3 +29,14 @@ function renderTodos(){
 }
 
 renderTodos();
+
+// Adicionando novos todos
+function addTodo(){
+	var todoText = inputElement.value;
+	
+	todos.push(todoText);
+	inputElement.value = '';
+	renderTodos();
+}
+
+buttonElement.onclick = addTodo;
