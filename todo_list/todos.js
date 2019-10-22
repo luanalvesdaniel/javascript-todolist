@@ -23,7 +23,16 @@ function renderTodos(){
 		var todoElement = document.createElement('li');
 		var todoText = document.createTextNode(todo);
 
+		var linkElement = document.createElement('a');
+		linkElement.setAttribute('href', '#');
+		var linkText = document.createTextNode('Excluir');
+		linkElement.appendChild(linkText);
+
+		var pos = todos.indexOf(todo);
+		linkElement.setAttribute('onclick', 'deleteTodo('+ pos + ')');
+
 		todoElement.appendChild(todoText);
+		todoElement.appendChild(linkElement);
 		listElement.appendChild(todoElement);
 	}
 }
@@ -40,3 +49,9 @@ function addTodo(){
 }
 
 buttonElement.onclick = addTodo;
+
+// Função para a remoção de todos ao clicar em Excluir
+function deleteTodo(pos){
+	todos.splice(pos, 1);
+	renderTodos();
+}
