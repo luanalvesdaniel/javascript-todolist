@@ -36,11 +36,14 @@ renderTodos();
 // Adicionando novos todos
 function addTodo(){
 	var todoText = inputElement.value;
-	
-	todos.push(todoText);
-	inputElement.value = '';
-	renderTodos();
-	saveToStorage();
+	if (todoText === ''){
+		alert('Digite um todo')		
+	} else {
+		todos.push(todoText);
+		inputElement.value = '';
+		renderTodos();
+		saveToStorage();
+	}	
 }
 
 buttonElement.onclick = addTodo;
