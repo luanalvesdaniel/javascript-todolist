@@ -17,6 +17,9 @@ function renderTodos(){
 		var todoElement = document.createElement('li');
 		var todoText = document.createTextNode(todo);
 
+		var checkElement = document.createElement('input');
+		checkElement.setAttribute('type','checkbox');
+				
 		var linkElement = document.createElement('a');
 		linkElement.setAttribute('href', '#');
 		var linkText = document.createTextNode('Excluir');
@@ -25,9 +28,11 @@ function renderTodos(){
 		var pos = todos.indexOf(todo);
 		linkElement.setAttribute('onclick', 'deleteTodo('+ pos + ')');
 
+		todoElement.appendChild(checkElement);
 		todoElement.appendChild(todoText);
 		todoElement.appendChild(linkElement);
 		listElement.appendChild(todoElement);
+		
 	}
 }
 
