@@ -18,26 +18,26 @@ body.appendChild(divElement);
 var inputE = document.createElement('input');
 var inputEText = document.createTextNode('');
 inputE.setAttribute('type','text');
-inputE.setAttribute('placeholder','Digite um todo');
+inputE.setAttribute('placeholder','Type todo');
 inputE.appendChild(inputEText);
 divElement.appendChild(inputE);
 
 // Button para confirmar a inclusão do Todo
 var buttonE = document.createElement('button');
-var buttonEText = document.createTextNode('Adicionar');
+var buttonEText = document.createTextNode('Add');
 buttonE.setAttribute('class','button');
 buttonE.appendChild(buttonEText);
 divElement.appendChild(buttonE);
 
 // h3 do TODO
 var h3ElementTodo = document.createElement('h3');
-var h3TextTodo = document.createTextNode('Todo');
+var h3TextTodo = document.createTextNode('TODO');
 h3ElementTodo.appendChild(h3TextTodo);
 divElement.appendChild(h3ElementTodo);
 
 // h3 do COMPLETED
 var h3ElementCompleted = document.createElement('h3');
-var h3TextCompleted = document.createTextNode('Completed');
+var h3TextCompleted = document.createTextNode('COMPLETED');
 h3ElementCompleted.appendChild(h3TextCompleted);
 divElement.appendChild(h3ElementCompleted);
 
@@ -65,21 +65,22 @@ function renderTodos(){
 		var todoElement = document.createElement('li');
 		var todoText = document.createTextNode(todo);
 
-		var checkElement = document.createElement('input');
-		checkElement.setAttribute('type','checkbox');
-		checkElement.setAttribute('id','check');
+		var checkElement = document.createElement('button');
+		checkElement.setAttribute('class','buttonDone');
+		var checkText = document.createTextNode('Done');
+		checkElement.appendChild(checkText);	
 		checkElement.setAttribute('onclick','completeTodo('+ pos + ')');
 				
 		var linkElement = document.createElement('a');
 		linkElement.setAttribute('href', '#');
-		var linkText = document.createTextNode('Excluir');
-		linkElement.appendChild(linkText);
-		
+		var linkText = document.createTextNode('Delete');
+		linkElement.appendChild(linkText);		
 		linkElement.setAttribute('onclick', 'deleteTodo('+ pos + ')');
 
-		todoElement.appendChild(checkElement);
+		
 		todoElement.appendChild(todoText);
 		todoElement.appendChild(linkElement);
+		todoElement.appendChild(checkElement);
 		listElement.appendChild(todoElement);
 		todoE = todoElement;
 	}
@@ -92,11 +93,13 @@ function renderTodosC(){
 		
 		var posC = todosC.indexOf(todo);
 		var todoElementC = document.createElement('li');
+		todoElementC.setAttribute('id','completed-tasks');
+		todoElementC.setAttribute('checked','checked');
 		var todoTextC = document.createTextNode(todo);
 
 		var linkElementC = document.createElement('a');
 		linkElementC.setAttribute('href', '#');
-		var linkTextC = document.createTextNode('Excluir');
+		var linkTextC = document.createTextNode('Delete');
 		linkElementC.appendChild(linkTextC);
 		
 		linkElementC.setAttribute('onclick', 'deleteTodoC('+ posC + ')');
@@ -104,8 +107,7 @@ function renderTodosC(){
 		todoElementC.appendChild(todoTextC);
 		todoElementC.appendChild(linkElementC);
 		listElementC.appendChild(todoElementC);
-		
-		
+				
 	}
 }
 
@@ -116,7 +118,7 @@ renderTodosC();
 function addTodo(){
 	var todoText = inputE.value;
 	if (todoText === ''){
-		alert('Digite um todo')		
+		alert('Type something todo')		
 	} else {
 		todos.push(todoText);
 		inputE.value = '';
@@ -141,18 +143,13 @@ function deleteTodoC(posC){
 }
 
 function completeTodo(pos){
-	var checkE = document.getElementById('check');
-	if (checkE.checked = true){
-		todosC.push(todos[pos]);
-		todos.splice(pos, 1);
-		renderTodos();
-		saveToStorage();
-		renderTodosC();
-		saveToStorageC();
-	} else {
-
-	}
-
+	todosC.push(todos[pos]);
+	todos.splice(pos, 1);
+	renderTodos();
+	saveToStorage();
+	renderTodosC();
+	saveToStorageC();
+	
 }
 
 // Salva no Storage
